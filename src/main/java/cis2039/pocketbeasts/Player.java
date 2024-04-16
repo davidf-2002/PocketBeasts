@@ -16,10 +16,14 @@
  */
 package cis2039.pocketbeasts;
 
+import cis2039.pocketbeasts.Collections.Deck;
+import cis2039.pocketbeasts.Collections.Graveyard;
+import cis2039.pocketbeasts.Collections.Hand;
+import cis2039.pocketbeasts.Collections.InPlay;
+
 /**
  *
- * @author Steven Mead
- * @author Chris Curry
+ * @author David Foomeni
  */
 public class Player {
     

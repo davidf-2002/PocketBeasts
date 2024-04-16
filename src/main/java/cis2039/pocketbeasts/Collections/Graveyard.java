@@ -14,44 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cis2039.pocketbeasts;
+package cis2039.pocketbeasts.Collections;
+
+import cis2039.pocketbeasts.Card;
 
 import java.util.ArrayList;
 
 /**
  *
- * @author Steven Mead
- * @author Chris Curry
+ * @author David Foomeni
  */
-public class InPlay {
-    
-    private final ArrayList<Card> cards;
+public class Graveyard extends CardCollection {
 
-    public InPlay() {
+    public Graveyard() {
         this.cards = new ArrayList<>();
-    }
-
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
-    
-    public Card getCard(int index) {
-        return cards.get(index);
-    }
-    
-    public void add(Card card) {
-        this.cards.add(card);
-    }
-    
-    public void remove(Card card) {
-        this.cards.remove(card);
-    }
-    
-    public void removeAll(ArrayList<Card> cards) {
-        this.cards.removeAll(cards);
-    }
-    
-    public int count() {
-        return this.cards.size();
     }
 }

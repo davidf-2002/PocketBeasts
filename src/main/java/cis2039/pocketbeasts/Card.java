@@ -18,65 +18,31 @@ package cis2039.pocketbeasts;
 
 /**
  *
- * @author Steven Mead
- * @author Chris Curry
+ * @author David Foomeni
  */
-public class Card implements Comparable<Card> {
 
-    private final String id;
-    private final String name;
-    private final int manaCost;
-    private final int attack;
-    private int health;
-    
-    public Card(String id, String name, int manaCost, int attack, int health) {
-        this.id = id;
-        this.name = name;
-        this.manaCost = manaCost;
-        this.attack = attack;
-        this.health = health;
-    }
-    
-    public Card(Card card) {
-        this.id = card.id;
-        this.name = card.name;
-        this.manaCost = card.manaCost;
-        this.attack = card.attack;
-        this.health = card.health;
-    }
+public interface Card {
+    String getId();
 
-    public String getId() {
-        return this.id;
-    }
-    
-    public String getName() {
-        return this.name;
-    }
+    String getName();
 
-    public int getManaCost() {
-        return this.manaCost;
-    }
-    
-    public int getAttack() {
-        return this.attack;
-    }
+    int getManaCost();
 
-    public int getHealth() {
-        return this.health;
-    }
-    
-    public void damage(int amount) {
-        this.health -= amount;
-    }
+    int getAttack();
 
-    @Override
-    public String toString() {
-        return this.name + " (" + this.id + ") Mana Cost/" + this.manaCost + 
-                " Attack/" + this.attack + " Health/" + this.health;
-    }
+    int getHealth();
 
-    @Override
-    public int compareTo(Card o) {
-        return Integer.compare(this.getManaCost(), o.getManaCost());
-    }
+    void damage(int amount);
+
+
+//    @Override
+//    public String toString() {
+//        return this.name + " (" + this.id + ") Mana Cost/" + this.manaCost +
+//                " Attack/" + this.attack + " Health/" + this.health;
+//    }
+//
+//    @Override
+//    public int compareTo(Card o) {
+//        return Integer.compare(this.getManaCost(), o.getManaCost());
+//    }
 }

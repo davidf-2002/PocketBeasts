@@ -14,19 +14,19 @@
  * You should have received a copy of the GNU General Public License
  * along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
  */
-package cis2039.pocketbeasts;
+package cis2039.pocketbeasts.Collections;
+
+import cis2039.pocketbeasts.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
- * @author Steven Mead
- * @author Chris Curry
+ * @author David Foomeni
  */
-public class Hand {
-    
-    private final ArrayList<Card> cards;
+public class Hand extends CardCollection{
 
     public Hand() {
         this.cards = new ArrayList<>();
@@ -36,25 +36,12 @@ public class Hand {
         return this.cards;
     }
     
-    public void add(Card card) {
-        this.cards.add(card);
-        this.sort();
-    }
-    
-    public void remove(Card card) {
-        this.cards.remove(card);
-    }
-    
     public void removeAll(ArrayList<Card> cards) {
         this.cards.removeAll(cards);
     }
-    
-    public int count() {
-        return this.cards.size();
-    }
-    
+
     public void sort() {
-        Collections.sort(this.cards);
+        this.cards.sort(Comparator.comparingInt(Card::getManaCost));    // This uses a lambda expression to sort cards by their mana cost.
     }
 
     @Override
