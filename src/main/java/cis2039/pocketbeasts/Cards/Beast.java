@@ -2,7 +2,7 @@ package cis2039.pocketbeasts.Cards;
 
 import cis2039.pocketbeasts.Card;
 
-public abstract class Beast implements Card {
+public class Beast implements Card {
     protected String id;
     protected String name;
     protected int manaCost;
@@ -37,4 +37,5 @@ public abstract class Beast implements Card {
     public String toString() {
         return name;
     }
+
 }

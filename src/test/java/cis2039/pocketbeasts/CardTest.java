@@ -136,16 +136,16 @@ public class CardTest {
     /**
      * Test of compareTo method, of class Card.
      */
-    @Test
-    public void testCompareTo() {
-        System.out.println("compareTo");
-        Card o = null;
-        Card instance = null;
-        int expResult = 0;
-        int result = instance.compareTo(o);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testCompareTo() {
+//        System.out.println("compareTo");
+//        Card o = null;
+//        Card instance = null;
+//        int expResult = 0;
+//        int result = instance.compareTo(o);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }
