@@ -16,11 +16,6 @@
  */
 package cis2039.pocketbeasts;
 
-import cis2039.pocketbeasts.Collections.Deck;
-import cis2039.pocketbeasts.Collections.Graveyard;
-import cis2039.pocketbeasts.Collections.Hand;
-import cis2039.pocketbeasts.Collections.InPlay;
-
 /**
  *
  * @author David Foomeni
@@ -28,27 +23,26 @@ import cis2039.pocketbeasts.Collections.InPlay;
 public class Player {
     
     private final int MAX_MANA = 9;
-    
     private final String name;
-    
     private int manaAvailable;
     private int manaTicker;
     private int health;
-    
-    private final Deck deck;
-    private final Hand hand;
-    private final InPlay inPlay;
-    private final Graveyard graveyard;
 
-    public Player(String name, Deck deck) {
+
+    private final ICardCollection deck;
+    private final ICardCollection hand;
+    private final ICardCollection inPlay;
+    private final ICardCollection graveyard;
+
+    public Player(String name, ICardCollection deck) {
         this.name = name;
         this.manaAvailable = 0;
         this.manaTicker = 0;
         this.health = 15;
         this.deck = deck;
-        this.hand = new Hand();
-        this.inPlay = new InPlay();
-        this.graveyard = new Graveyard();
+        this.hand = new CardCollection();
+        this.inPlay = new CardCollection();
+        this.graveyard = new CardCollection();
     }
 
     public String getName() {
@@ -62,23 +56,25 @@ public class Player {
     public int getHealth() {
         return this.health;
     }
-    
-    public Deck getDeck() {
+
+
+    public ICardCollection getDeck() {
         return this.deck;
     }
-    
-    public Hand getHand() {
+
+    public ICardCollection getHand() {
         return this.hand;
     }
 
-    public InPlay getInPlay() {
+    public ICardCollection getInPlay() {
         return this.inPlay;
     }
-    
-    public Graveyard getGraveyard() {
+
+    public ICardCollection getGraveyard() {
         return this.graveyard;
     }
-    
+
+
     public void newGame() {
         this.deck.shuffle();
         for (int i=0; i<4; i++) {
@@ -153,7 +149,7 @@ public class Player {
         sb.append(String.format("%d card(s) in hand.\n", this.hand.count()));
         sb.append("\n");
         
-        sb.append(this.hand.toString());
+        sb.append(this.hand);
         
         return sb.toString();
     }

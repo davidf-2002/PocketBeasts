@@ -1,13 +1,11 @@
 package cis2039.pocketbeasts;
 
-import cis2039.pocketbeasts.Collections.Deck;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
-    Game() {
+    public void startGame() {
         printRules();
 
         System.out.println("Press ENTER to continue...");
@@ -15,8 +13,8 @@ public class Game {
         sc.nextLine();
 
         Player[] players = new Player[] {
-                new Player("Steve", new Deck(StarterDeck.getStarterDeck())),
-                new Player("Chris", new Deck(StarterDeck.getStarterDeck()))
+                new Player("Steve", new CardCollection(StarterDeck.getStarterDeck())),
+                new Player("Chris", new CardCollection(StarterDeck.getStarterDeck()))
         };
 
         for (Player player : players) {
@@ -25,7 +23,7 @@ public class Game {
         }
 
         String winningMessage = "";
-        Boolean run = true;
+        boolean run = true;
         while(run) {
             for (Player player : players) {
                 // Add mana and draw card

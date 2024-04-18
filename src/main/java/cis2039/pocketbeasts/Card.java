@@ -34,15 +34,4 @@ public interface Card {
 
     void damage(int amount);
 
-
-//    @Override
-//    public String toString() {
-//        return this.name + " (" + this.id + ") Mana Cost/" + this.manaCost +
-//                " Attack/" + this.attack + " Health/" + this.health;
-//    }
-//
-//    @Override
-//    public int compareTo(Card o) {
-//        return Integer.compare(this.getManaCost(), o.getManaCost());
-//    }
 }

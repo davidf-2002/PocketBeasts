@@ -1,6 +1,4 @@
-package cis2039.pocketbeasts.Cards;
-
-import cis2039.pocketbeasts.Card;
+package cis2039.pocketbeasts;
 
 public class Beast implements Card {
     protected String id;
