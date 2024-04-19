@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class CardCollection implements ICardCollection {
-    private final ArrayList<Card> cards;
+    private final ArrayList<ICard> cards;
 
-    public CardCollection(ArrayList<Card> initialCards) {
+    public CardCollection(ArrayList<ICard> initialCards) {
         this.cards = new ArrayList<>(initialCards);  // Initialize with the provided deck
     }
     public CardCollection() {
@@ -21,12 +21,12 @@ public class CardCollection implements ICardCollection {
 
 
     @Override
-    public void add(Card card) {
+    public void add(ICard card) {
         cards.add(card);
     }
 
     @Override
-    public Card getCard(int index){
+    public ICard getCard(int index){
     if (index >= 0 && index < cards.size()) {
         return cards.get(index);
     }
@@ -34,12 +34,12 @@ public class CardCollection implements ICardCollection {
     }
 
     @Override
-    public void remove(Card card) {
+    public void remove(ICard card) {
         cards.remove(card);
     }
 
     @Override
-    public Card draw() {
+    public ICard draw() {
         if (!cards.isEmpty()) {
             return cards.remove(0);
         }
@@ -52,24 +52,24 @@ public class CardCollection implements ICardCollection {
     }
 
     @Override
-    public ArrayList<Card> getCards() {
+    public ArrayList<ICard> getCards() {
         return cards;
     }
 
     @Override
-    public void removeAll(ArrayList<Card> cardsToBeRemoved) {
+    public void removeAll(ArrayList<ICard> cardsToBeRemoved) {
         cards.removeAll(cardsToBeRemoved);
     }
 
     @Override
     public void sort() {
-        this.cards.sort(Comparator.comparingInt(Card::getManaCost));    // This uses a lambda expression to sort cards by their mana cost.
+        this.cards.sort(Comparator.comparingInt(ICard::getManaCost));    // This uses a lambda expression to sort cards by their mana cost.
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Card card : cards) {
+        for (ICard card : cards) {
             sb.append(card.getName() + "\n");
         }
         return sb.toString();

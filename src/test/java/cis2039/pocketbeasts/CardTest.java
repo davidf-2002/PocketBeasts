@@ -9,14 +9,17 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Steven Mead
+ * @author David Foomeni
  */
 public class CardTest {
-    
+
+    private ICard card;
+
     public CardTest() {
     }
     
@@ -30,10 +33,12 @@ public class CardTest {
     
     @Before
     public void setUp() {
+        card = new Beast("BR", "Barn Rat", 1, 1, 1);
     }
     
     @After
     public void tearDown() {
+        card = null;
     }
 
     /**
@@ -41,13 +46,10 @@ public class CardTest {
      */
     @Test
     public void testGetId() {
-        System.out.println("getId");
-        Card instance = null;
-        String expResult = "";
+        ICard instance = card;
+        String expResult = "BR";
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -55,13 +57,10 @@ public class CardTest {
      */
     @Test
     public void testGetName() {
-        System.out.println("getName");
-        Card instance = null;
-        String expResult = "";
+        ICard instance = card;
+        String expResult = "Barn Rat";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -69,13 +68,10 @@ public class CardTest {
      */
     @Test
     public void testGetManaCost() {
-        System.out.println("getManaCost");
-        Card instance = null;
-        int expResult = 0;
+        ICard instance = card;
+        int expResult = 1;
         int result = instance.getManaCost();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,13 +79,10 @@ public class CardTest {
      */
     @Test
     public void testGetAttack() {
-        System.out.println("getAttack");
-        Card instance = null;
-        int expResult = 0;
+        ICard instance = card;
+        int expResult = 1;
         int result = instance.getAttack();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -97,13 +90,10 @@ public class CardTest {
      */
     @Test
     public void testGetHealth() {
-        System.out.println("getHealth");
-        Card instance = null;
-        int expResult = 0;
+        ICard instance = card;
+        int expResult = 1;
         int result = instance.getHealth();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,12 +101,9 @@ public class CardTest {
      */
     @Test
     public void testDamage() {
-        System.out.println("damage");
         int amount = 0;
-        Card instance = null;
+        ICard instance = card;
         instance.damage(amount);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -124,13 +111,10 @@ public class CardTest {
      */
     @Test
     public void testToString() {
-        System.out.println("toString");
-        Card instance = null;
-        String expResult = "";
+        ICard instance = card;
+        String expResult = "Barn Rat";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -147,5 +131,5 @@ public class CardTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
+
 }

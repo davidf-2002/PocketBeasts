@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public interface ICardCollection {
     int count();
-    void add(Card card);
-    void remove(Card card);
-    Card draw();
-    Card getCard(int index);
+    void add(ICard card);
+    void remove(ICard card);
+    ICard draw();
+    ICard getCard(int index);
     void shuffle();
-    ArrayList<Card> getCards();
-    void removeAll(ArrayList<Card> cardsToBeRemoved);
+    ArrayList<ICard> getCards();
+    void removeAll(ArrayList<ICard> cardsToBeRemoved);
     void sort();
 }

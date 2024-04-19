@@ -24,7 +24,7 @@ import java.util.Arrays;
  * @author David Foomeni
  */
 public class StarterDeck {
-    public static final Card[] STARTER_CARDS = new Card[] {
+    public static final ICard[] STARTER_CARDS = new ICard[] {
             new Beast("BR", "Barn Rat", 1, 1, 1),
             new Beast("SP", "Scampering Pup", 2, 2, 1),
             new Beast("HB", "Hardshell Beetle", 2, 1, 2),
@@ -35,8 +35,8 @@ public class StarterDeck {
             new Beast("HT", "Highland Tiger", 5, 4, 4)
     };
 
-    public static ArrayList<Card> getStarterDeck() {
-        ArrayList<Card> starterDeck = new ArrayList<>();
+    public static ArrayList<ICard> getStarterDeck() {
+        ArrayList<ICard> starterDeck = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
             starterDeck.addAll(Arrays.asList(STARTER_CARDS));

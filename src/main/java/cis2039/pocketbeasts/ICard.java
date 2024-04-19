@@ -21,7 +21,7 @@ package cis2039.pocketbeasts;
  * @author David Foomeni
  */
 
-public interface Card {
+public interface ICard {
     String getId();
 
     String getName();
@@ -34,4 +34,5 @@ public interface Card {
 
     void damage(int amount);
 
+    int compareTo(ICard o);
 }
