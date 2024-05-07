@@ -10,9 +10,9 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        ArrayList<ICard> starterDeck = StarterDeck.getStarterDeck();
-        ICard testCard = starterDeck.get(0);      // Testing "Barn Rat", 1, 1, 1
-        player = new Player("TestPlayer", new CardCollection(StarterDeck.getStarterDeck()));
+        ArrayList<Card> starterDeck = Game.getStarterDeck();
+        Card testCard = starterDeck.get(0);      // Testing "Barn Rat", 1, 1, 1
+        player = new Player("TestPlayer", new CardCollection(Game.getStarterDeck()));
     }
 
     @Test

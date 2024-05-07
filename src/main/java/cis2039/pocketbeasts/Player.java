@@ -17,9 +17,10 @@
 package cis2039.pocketbeasts;
 
 /**
- *
- * @author David Foomeni
+ * Represents a player in a card game. This class manages the player's state including
+ * mana, health, and card collections such as the deck, hand, cards in play, and graveyard.
  */
+
 public class Player {
     
     private final int MAX_MANA = 9;
@@ -28,11 +29,17 @@ public class Player {
     private int manaTicker;
     private int health;
 
-
     private final ICardCollection deck;
     private final ICardCollection hand;
     private final ICardCollection inPlay;
     private final ICardCollection graveyard;
+
+    /**
+     * Constructs a Player with a specified name and initial deck.
+     * Initializes the player's health to 15 and mana to 0.
+     * @param name Name of player
+     * @param deck Initial Deck for player
+     */
 
     public Player(String name, ICardCollection deck) {
         this.name = name;
@@ -57,11 +64,6 @@ public class Player {
         return this.health;
     }
 
-
-    public ICardCollection getDeck() {
-        return this.deck;
-    }
-
     public ICardCollection getHand() {
         return this.hand;
     }
@@ -74,14 +76,16 @@ public class Player {
         return this.graveyard;
     }
 
-
+    /**
+     * Prepares the player for a new game by shuffling the deck and drawing the initial hand of four cards.
+     */
     public void newGame() {
         this.deck.shuffle();
         for (int i=0; i<4; i++) {
             this.hand.add(this.deck.draw());
         }
     }
-    
+
     public void addMana() {
         if (this.manaTicker < this.MAX_MANA) {
             this.manaTicker++;

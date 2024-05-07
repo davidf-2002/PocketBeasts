@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class CardTest {
 
-    private ICard card;
+    private Card card;
 
     public CardTest() {
     }
@@ -46,7 +46,7 @@ public class CardTest {
      */
     @Test
     public void testGetId() {
-        ICard instance = card;
+        Card instance = card;
         String expResult = "BR";
         String result = instance.getId();
         assertEquals(expResult, result);
@@ -57,7 +57,7 @@ public class CardTest {
      */
     @Test
     public void testGetName() {
-        ICard instance = card;
+        Card instance = card;
         String expResult = "Barn Rat";
         String result = instance.getName();
         assertEquals(expResult, result);
@@ -68,7 +68,7 @@ public class CardTest {
      */
     @Test
     public void testGetManaCost() {
-        ICard instance = card;
+        Card instance = card;
         int expResult = 1;
         int result = instance.getManaCost();
         assertEquals(expResult, result);
@@ -79,7 +79,7 @@ public class CardTest {
      */
     @Test
     public void testGetAttack() {
-        ICard instance = card;
+        Card instance = card;
         int expResult = 1;
         int result = instance.getAttack();
         assertEquals(expResult, result);
@@ -90,7 +90,7 @@ public class CardTest {
      */
     @Test
     public void testGetHealth() {
-        ICard instance = card;
+        Card instance = card;
         int expResult = 1;
         int result = instance.getHealth();
         assertEquals(expResult, result);
@@ -102,7 +102,7 @@ public class CardTest {
     @Test
     public void testDamage() {
         int amount = 0;
-        ICard instance = card;
+        Card instance = card;
         instance.damage(amount);
     }
 
@@ -111,7 +111,7 @@ public class CardTest {
      */
     @Test
     public void testToString() {
-        ICard instance = card;
+        Card instance = card;
         String expResult = "Barn Rat";
         String result = instance.toString();
         assertEquals(expResult, result);

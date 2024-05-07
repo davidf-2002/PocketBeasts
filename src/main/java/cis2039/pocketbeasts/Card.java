@@ -17,11 +17,10 @@
 package cis2039.pocketbeasts;
 
 /**
- *
- * @author David Foomeni
+ * Defines the contract for a Card. This interface specifies methods
+ * for using a Card in the game
  */
-
-public interface ICard {
+public interface Card {
     String getId();
 
     String getName();
@@ -34,5 +33,5 @@ public interface ICard {
 
     void damage(int amount);
 
-    int compareTo(ICard o);
+    //int compareTo(ICard o);
 }

@@ -16,17 +16,23 @@
  */
 package cis2039.pocketbeasts;
 
+import cis2039.pocketbeasts.Template.CardGameRunner;
+
 /**
- *
  * @author David Foomeni
+ * When using a game mode uncomment out the other game
  */
 public class Main {
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        Game newGame = new Game();
-        newGame.startGame();
+
+//        // Main Game
+//        Game newGame = new Game();
+//        newGame.startGame();
+
+        // Game Runner
+        CardGameRunner game = new CardGameRunner();
+        game.startGame();
+
     }
 }
 

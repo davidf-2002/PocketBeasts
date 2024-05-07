@@ -13,13 +13,13 @@ public class Game {
         sc.nextLine();
 
         Player[] players = new Player[] {
-                new Player("Steve", new CardCollection(StarterDeck.getStarterDeck())),
-                new Player("Chris", new CardCollection(StarterDeck.getStarterDeck()))
+                new Player("Steve", new CardCollection(getStarterDeck())),
+                new Player("Chris", new CardCollection(getStarterDeck()))
         };
 
-        for (Player player : players) {
+        GameState gameState = new GameState(players);
+        for (Player player : gameState.getPlayers()) {
             player.newGame();
-            System.out.println(player);
         }
 
         String winningMessage = "";
@@ -47,7 +47,7 @@ public class Game {
                 }
 
                 // Cycle through cards in play to attack
-                for (ICard card : player.getInPlay().getCards()) {
+                for (Card card : player.getInPlay().getCards()) {
                     System.out.println(card.toString());
 
                     String attack = getPrompt(
@@ -58,7 +58,7 @@ public class Game {
                         int attackChoice = 2;
                         System.out.println("Who would you like to attack? ");
                         System.out.println("1. " + otherPlayer.getName());
-                        for (ICard otherCard: otherPlayer.getInPlay().getCards()) {
+                        for (Card otherCard: otherPlayer.getInPlay().getCards()) {
                             System.out.println(attackChoice + ". " + otherCard);
                             attackChoice++;
                         }
@@ -77,7 +77,7 @@ public class Game {
                             System.out.println(otherPlayer.getName() + " is now at " + otherPlayer.getHealth());
                         }
                         else { // Beast, index is `target-2`
-                            ICard targetCard = otherPlayer.getInPlay().getCard(Integer.parseInt(target)-2);
+                            Card targetCard = otherPlayer.getInPlay().getCard(Integer.parseInt(target)-2);
                             targetCard.damage(card.getAttack());
                             card.damage(targetCard.getAttack());
                         }
@@ -89,8 +89,8 @@ public class Game {
                 }
 
                 // Cycle through cards in play remove "dead" cards (health <= 0)
-                ArrayList<ICard> toRemove = new ArrayList<>();
-                for (ICard card : player.getInPlay().getCards()) {
+                ArrayList<Card> toRemove = new ArrayList<>();
+                for (Card card : player.getInPlay().getCards()) {
                     if (card.getHealth() <= 0) {
                         toRemove.add(card);
                         player.getGraveyard().add(card);
@@ -99,7 +99,7 @@ public class Game {
                 player.getInPlay().removeAll(toRemove);
 
                 toRemove = new ArrayList<>();
-                for (ICard card : otherPlayer.getInPlay().getCards()) {
+                for (Card card : otherPlayer.getInPlay().getCards()) {
                     if (card.getHealth() <= 0) {
                         toRemove.add(card);
                         otherPlayer.getGraveyard().add(card);
@@ -109,21 +109,26 @@ public class Game {
 
                 // Play cards from hand
                 toRemove = new ArrayList<>();
-                for (ICard card : player.getHand().getCards()) {
+                //ArrayList<Card> toRemove = new ArrayList<>();
+                for (int i = 0; i < player.getHand().getCards().size(); i++) {
+                    Card card = player.getHand().getCards().get(i);
                     if (card.getManaCost() <= player.getManaAvailable()) {
-                        System.out.println(card.toString());
+                        System.out.println(card);
 
                         String play = getPrompt(
-                                player.getName() + " play " + card.getName() + "? (Yes/No) ",
-                                new String[]{"Yes", "yes", "y", "No", "no", "n"});
-                        if (play.equals("Yes") || play.equals("yes") || play.equals("y")) {
+                                player.getName() + ", play " + card.getName() + "? (Yes/No): ",
+                                new String[]{"Yes", "yes", "Y", "No", "no", "N"});
+
+                        if (play.equalsIgnoreCase("yes")) {
                             player.getInPlay().add(card);
                             player.useMana(card.getManaCost());
                             toRemove.add(card);
+                            System.out.println(card.getName() + " played.");
                         }
                     }
                 }
                 player.getHand().removeAll(toRemove);
+
 
                 // Print final play state
                 System.out.println("\n".repeat(16));
@@ -178,4 +183,26 @@ public class Game {
         System.out.println("4. Play cards from hand.");
         System.out.println("");
     }
+
+    public static final Card[] STARTER_CARDS = new Card[] {
+            new Beast("BR", "Barn Rat", 1, 1, 1),
+            new Beast("SP", "Scampering Pup", 2, 2, 1),
+            new Beast("HB", "Hardshell Beetle", 2, 1, 2),
+            new Beast("VHC", "Vicious House Cat", 3, 3, 2),
+            new Beast("GD", "Guard Dog", 3, 2, 3),
+            new Beast("ARH", "All Round Hound", 3, 3, 3),
+            new Beast("MO","Moor Owl", 4, 4, 2),
+            new Beast("HT", "Highland Tiger", 5, 4, 4)
+    };
+
+    public static ArrayList<Card> getStarterDeck() {
+        ArrayList<Card> starterDeck = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+            starterDeck.addAll(Arrays.asList(STARTER_CARDS));
+        }
+
+        return starterDeck;
+    }
+
 }

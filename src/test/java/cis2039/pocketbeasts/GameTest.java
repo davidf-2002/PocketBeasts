@@ -13,14 +13,14 @@ public class GameTest {
     @Before
     public void setUp() {
         game = new Game();
-        player1 = new Player("Player 1", new CardCollection(StarterDeck.getStarterDeck()));
+        player1 = new Player("Player 1", new CardCollection(Game.getStarterDeck()));
         player1.newGame();
     }
 
     @Test
     public void testCardGoesToGraveyard() {
         // Setup scenario where a card is definitely defeated
-        ICard testCard = new Beast("Test", "Fragile Beast", 1, 1, 1); // A card with 1 health
+        Card testCard = new Beast("Test", "Fragile Beast", 1, 1, 1); // A card with 1 health
         player1.getInPlay().add(testCard);
 
         // This attack should send the testCard to the graveyard
@@ -39,7 +39,7 @@ public class GameTest {
 
     @Test
     public void testCardMovesToInPlay() {
-        ICard cardToPlay = player1.getHand().getCard(0); // Get the first card from hand
+        Card cardToPlay = player1.getHand().getCard(0); // Get the first card from hand
         if (cardToPlay != null && cardToPlay.getManaCost() <= player1.getManaAvailable()) {
             player1.getInPlay().add(cardToPlay); // Simulate playing the card
             player1.getHand().remove(cardToPlay);

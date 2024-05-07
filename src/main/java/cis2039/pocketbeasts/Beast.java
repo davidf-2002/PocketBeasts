@@ -1,6 +1,9 @@
 package cis2039.pocketbeasts;
 
-public class Beast implements ICard {
+/**
+ * Represents a beast-type card in a card game
+ */
+public class Beast implements Card {
     protected String id;
     protected String name;
     protected int manaCost;
@@ -25,10 +28,13 @@ public class Beast implements ICard {
     public int getAttack() { return attack; }
     @Override
     public int getHealth() { return health; }
-
     @Override
     public void damage(int amount) {
         health -= amount;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     @Override
@@ -36,8 +42,8 @@ public class Beast implements ICard {
         return name;
     }
 
-    @Override
-    public int compareTo(ICard o) {
-        return Integer.compare(this.getManaCost(), o.getManaCost());
-    }
+//    @Override
+//    public int compareTo(ICard o) {
+//        return Integer.compare(this.getManaCost(), o.getManaCost());
+//    }
 }

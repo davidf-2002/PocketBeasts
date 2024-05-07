@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * Implements the ICardCollection interface, providing a concrete collection management
+ * system for cards in a card game
+ */
 public class CardCollection implements ICardCollection {
-    private final ArrayList<ICard> cards;
+    private final ArrayList<Card> cards;
 
-    public CardCollection(ArrayList<ICard> initialCards) {
+    public CardCollection(ArrayList<Card> initialCards) {
         this.cards = new ArrayList<>(initialCards);  // Initialize with the provided deck
     }
     public CardCollection() {
@@ -19,14 +23,13 @@ public class CardCollection implements ICardCollection {
         return cards.size();
     }
 
-
     @Override
-    public void add(ICard card) {
+    public void add(Card card) {
         cards.add(card);
     }
 
     @Override
-    public ICard getCard(int index){
+    public Card getCard(int index){
     if (index >= 0 && index < cards.size()) {
         return cards.get(index);
     }
@@ -34,12 +37,12 @@ public class CardCollection implements ICardCollection {
     }
 
     @Override
-    public void remove(ICard card) {
+    public void remove(Card card) {
         cards.remove(card);
     }
 
     @Override
-    public ICard draw() {
+    public Card draw() {
         if (!cards.isEmpty()) {
             return cards.remove(0);
         }
@@ -52,24 +55,24 @@ public class CardCollection implements ICardCollection {
     }
 
     @Override
-    public ArrayList<ICard> getCards() {
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
     @Override
-    public void removeAll(ArrayList<ICard> cardsToBeRemoved) {
+    public void removeAll(ArrayList<Card> cardsToBeRemoved) {
         cards.removeAll(cardsToBeRemoved);
     }
 
     @Override
     public void sort() {
-        this.cards.sort(Comparator.comparingInt(ICard::getManaCost));    // This uses a lambda expression to sort cards by their mana cost.
+        this.cards.sort(Comparator.comparingInt(Card::getManaCost));
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (ICard card : cards) {
+        for (Card card : cards) {
             sb.append(card.getName() + "\n");
         }
         return sb.toString();
