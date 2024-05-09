@@ -75,6 +75,7 @@ public class Player {
     public ICardCollection getGraveyard() {
         return this.graveyard;
     }
+    public ICardCollection getDeck() { return this.deck;}
 
     /**
      * Prepares the player for a new game by shuffling the deck and drawing the initial hand of four cards.

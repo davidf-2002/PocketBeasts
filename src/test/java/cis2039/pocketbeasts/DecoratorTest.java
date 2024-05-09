@@ -1,7 +1,7 @@
 package cis2039.pocketbeasts;
 
-import cis2039.pocketbeasts.Decorator.AttackBoostEnhancement;
-import cis2039.pocketbeasts.Decorator.HealthShieldEnhancement;
+import cis2039.pocketbeasts.DecoratorPattern.AttackBoostEnhancement;
+import cis2039.pocketbeasts.DecoratorPattern.HealthShieldEnhancement;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -29,8 +29,5 @@ public class DecoratorTest {
         assertEquals("Health should decrease by 1 after second attack", 1, decoratedCard.getHealth());
     }
 
-    @Test
-    public void testStackedDecorators() {
-    }
 
 }

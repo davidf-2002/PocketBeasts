@@ -1,4 +1,4 @@
-package cis2039.pocketbeasts.Decorator;
+package cis2039.pocketbeasts.DecoratorPattern;
 
 import cis2039.pocketbeasts.Beast;
 import cis2039.pocketbeasts.Card;

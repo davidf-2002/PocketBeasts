@@ -8,6 +8,7 @@ import java.util.Comparator;
  * Implements the ICardCollection interface, providing a concrete collection management
  * system for cards in a card game
  */
+
 public class CardCollection implements ICardCollection {
     private final ArrayList<Card> cards;
 

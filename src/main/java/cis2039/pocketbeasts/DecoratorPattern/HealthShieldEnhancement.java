@@ -1,4 +1,4 @@
-package cis2039.pocketbeasts.Decorator;
+package cis2039.pocketbeasts.DecoratorPattern;
 
 import cis2039.pocketbeasts.Card;
 
@@ -31,6 +31,11 @@ public class HealthShieldEnhancement extends CardDecorator {
             // Once shield is inactive, pass damage to the decorated card
             super.damage(amount);
         }
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return 0;
     }
 
     @Override

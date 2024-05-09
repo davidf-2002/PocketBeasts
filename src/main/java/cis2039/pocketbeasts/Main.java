@@ -16,6 +16,7 @@
  */
 package cis2039.pocketbeasts;
 
+import cis2039.pocketbeasts.ObserverPatttern.TestRunner;
 import cis2039.pocketbeasts.Template.CardGameRunner;
 
 /**
@@ -29,9 +30,13 @@ public class Main {
 //        Game newGame = new Game();
 //        newGame.startGame();
 
-        // Game Runner
-        CardGameRunner game = new CardGameRunner();
-        game.startGame();
+//        // Game Runner
+//        CardGameRunner game = new CardGameRunner();
+//        game.startGame();
+
+        // Test Runner
+        TestRunner testGame = new TestRunner();
+        testGame.startGame();
 
     }
 }

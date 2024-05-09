@@ -33,17 +33,13 @@ public class Beast implements Card {
         health -= amount;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
     @Override
     public String toString() {
         return name;
     }
 
-//    @Override
-//    public int compareTo(ICard o) {
-//        return Integer.compare(this.getManaCost(), o.getManaCost());
-//    }
+    @Override
+    public int compareTo(Card o) {
+        return Integer.compare(this.getManaCost(), o.getManaCost());
+    }
 }

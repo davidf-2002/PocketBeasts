@@ -3,6 +3,8 @@ package cis2039.pocketbeasts;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
+
+import static cis2039.pocketbeasts.Game.getStarterDeck;
 import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
@@ -10,9 +12,9 @@ public class PlayerTest {
 
     @Before
     public void setUp() {
-        ArrayList<Card> starterDeck = Game.getStarterDeck();
+        ArrayList<Card> starterDeck = getStarterDeck();
         Card testCard = starterDeck.get(0);      // Testing "Barn Rat", 1, 1, 1
-        player = new Player("TestPlayer", new CardCollection(Game.getStarterDeck()));
+        player = new Player("TestPlayer", new CardCollection(getStarterDeck()));
     }
 
     @Test

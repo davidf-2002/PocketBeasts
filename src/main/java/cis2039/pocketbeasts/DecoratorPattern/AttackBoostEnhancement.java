@@ -1,4 +1,4 @@
-package cis2039.pocketbeasts.Decorator;
+package cis2039.pocketbeasts.DecoratorPattern;
 
 import cis2039.pocketbeasts.Card;
 
@@ -20,6 +20,11 @@ public class AttackBoostEnhancement extends CardDecorator {
     @Override
     public int getAttack() {
         return (int) Math.ceil(super.getAttack() * 1.8);
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return 0;
     }
 
     @Override

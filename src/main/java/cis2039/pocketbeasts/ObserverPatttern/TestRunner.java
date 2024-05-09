@@ -1,34 +1,27 @@
-package cis2039.pocketbeasts.Template;
+package cis2039.pocketbeasts.ObserverPatttern;
 
 import cis2039.pocketbeasts.*;
+import cis2039.pocketbeasts.GameLogger;
+import cis2039.pocketbeasts.Template.GameRunner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- * An implementation of GameRunner.java using the template design pattern
- * Manages the flow and rules of the PocketBeasts game
- */
+public class TestRunner extends GameRunner {
+    public GameState gameState;
 
-public class CardGameRunner extends GameRunner {
-
-    private final Player[] players;
-    private String winningMessage;
-
-    public CardGameRunner() {
+    public TestRunner() {
         this(new String[]{"Steve", "Chris"});
     }
 
-    /**
-     * Constructs a CardGameRunner with specific player names
-     * @param playerNames Array of names used to initialise the players
-     */
-    public CardGameRunner(String[] playerNames) {
-        players = new Player[playerNames.length];
+    public TestRunner(String[] playerNames) {
+        Player[] players = new Player[playerNames.length];
         for (int i = 0; i < playerNames.length; i++) {
             players[i] = new Player(playerNames[i], new CardCollection(getStarterDeck()));
         }
-        winningMessage = "";
+        this.gameState = new GameState(players);
+        setupSpectators();
     }
 
     @Override
@@ -37,7 +30,7 @@ public class CardGameRunner extends GameRunner {
         System.out.println("Press ENTER to continue...");
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
-        for (Player player : players) {
+        for (Player player : gameState.getPlayers()) {
             player.newGame();
             System.out.println(player);
         }
@@ -45,9 +38,9 @@ public class CardGameRunner extends GameRunner {
 
     @Override
     protected boolean isGameOver() {
-        for (Player player : players) {
+        for (Player player : gameState.getPlayers()) {
             if (player.getHealth() <= 0) {
-                winningMessage = player.getName() + " has lost the game.";
+                gameState.endGame(player.getName() + " has lost the game.");
                 return true;
             }
         }
@@ -56,33 +49,60 @@ public class CardGameRunner extends GameRunner {
 
     @Override
     protected void playTurn() {
-        for (Player player : players) {
-            addManaAndDrawCard(player);
-            printPlayerState(player);
+        Player currentPlayer = gameState.getCurrentPlayer();
+        Player otherPlayer = gameState.getOpponent();
 
-            Player otherPlayer = findOpponent(player);
-            if (otherPlayer == null){
-                winningMessage = "Something has gone terribly wrong...";
-                return;
-            }
+        GameLogger.logEvent(currentPlayer.getName() + "'s turn starts.");
+        gameState.notifySpectators(currentPlayer.getName() + "'s turn starts");
 
-            handleCardAttacks(player, otherPlayer);
-            if (isGameOver()) break;
+        GameLogger.logEvent("Mana and Card Draw Phase begins.");
+        addManaAndDrawCard(currentPlayer);
 
-            removeDeadCards(player);
-            playCardsFromHand(player);
-            printSeparator();
-            printPlayerState(player);
+        GameLogger.logEvent("Combat Phase begins.");
+        handleCardAttacks(currentPlayer, otherPlayer);
+
+        if (isGameOver()) {
+            finalizeGame();
+            return;
         }
+
+        GameLogger.logEvent("Card Removal Phase begins.");
+        removeDeadCards(currentPlayer, otherPlayer);
+
+        GameLogger.logEvent("Card Play Phase begins.");
+        gameState.notifySpectators(currentPlayer.getName() + " is considering playing his cards.");
+        playCardsFromHand(currentPlayer);
+
+        printSeparator();
+        printPlayerState(currentPlayer);
+
+        gameState.getOpponent();
+        if (gameState.isGameRunning()) {
+            GameLogger.logEvent(currentPlayer.getName() + "'s turn ends.");
+        } else {
+            finalizeGame();
+        }
+
     }
 
     @Override
     protected void finalizeGame() {
-        System.out.println(winningMessage);
+        System.out.println(gameState.getWinningMessage());
     }
 
     private void printPlayerState(Player player) {
-        System.out.println(player);
+        System.out.println("Player: " + player.getName());
+        System.out.println("Health: " + player.getHealth() + ", Mana: " + player.getManaAvailable());
+        System.out.println("Deck size: " + player.getDeck().count() + ", Hand size: " + player.getHand().count());
+        System.out.println("In play cards:");
+        for (Card card : player.getInPlay().getCards()) {
+            System.out.println("Card: " + card.getName() + ", Attack: " + card.getAttack() + ", Health: " + card.getHealth());
+        }
+        System.out.println("Graveyard cards:");
+        for (Card card : player.getGraveyard().getCards()) {
+            System.out.println("Card: " + card.getName());
+        }
+        GameLogger.logEvent("State printed for player: " + player.getName());
     }
 
     private void printSeparator() {
@@ -91,38 +111,32 @@ public class CardGameRunner extends GameRunner {
 
     private void addManaAndDrawCard(Player player) {
         player.addMana();
+        gameState.notifySpectators(player.getName() + " is about to draw a card has " + player.getManaAvailable() + " mana.");
         player.drawCard();
         System.out.println(player);
-
-    }
-
-    private Player findOpponent(Player currentPlayer) {
-        for (Player player : players) {
-            if (player != currentPlayer) {
-                return player;
-            }
-        }
-        return null;
     }
 
     private void handleCardAttacks(Player player, Player otherPlayer) {
         for (Card card : player.getInPlay().getCards()) {
             System.out.println(card.toString());
 
+            gameState.notifySpectators(player.getName() + " is considering an attack with " + card.getName());
+
             String attack = getPrompt(
                     player.getName() + " attack with " + card.getName() + "? (Yes/No): ",
                     new String[]{"Yes", "yes", "y", "No", "no", "n"}
             );
             if (attack.equalsIgnoreCase("Yes") || attack.equalsIgnoreCase("y")) {
-                executeAttack(card, otherPlayer);
-            }
-            if (isGameOver()) {
-                break;
+                executeAttack(player, card, otherPlayer);
+                if (isGameOver()) {
+                    break;
+                }
             }
         }
     }
 
-    private void executeAttack(Card card, Player otherPlayer) {
+    private void executeAttack(Player player, Card card, Player otherPlayer) {
+        GameLogger.logEvent(player.getName() + " decides to attack with " + card.getName());
         int attackChoice = 2;
         System.out.println("Who would you like to attack? ");
         System.out.println("1. " + otherPlayer.getName());
@@ -138,7 +152,7 @@ public class CardGameRunner extends GameRunner {
         String target = getPrompt("Choose a number: ", prompts.toArray(new String[0]));
 
         if ("1".equals(target)) { // Player directly
-            boolean result = otherPlayer.damage(card.getAttack());
+            gameState.notifySpectators(card.getName() + " attacks " + otherPlayer.getName() + " directly for " + card.getAttack() + " damage.");
             System.out.println(otherPlayer.getName() + " is now at " + otherPlayer.getHealth() + " health.");
             if (isGameOver()) {
                 return;
@@ -147,6 +161,7 @@ public class CardGameRunner extends GameRunner {
             Card targetCard = otherPlayer.getInPlay().getCard(Integer.parseInt(target) - 2);
             targetCard.damage(card.getAttack());
             card.damage(targetCard.getAttack());
+            gameState.notifySpectators(card.getName() + " attacks " + targetCard.getName() + " dealing " + card.getAttack() + " damage and receiving " + targetCard.getAttack() + " damage in return.");
             System.out.println(otherPlayer.getName() + "'s " + targetCard.getName() + " now has " + targetCard.getHealth() + " health.");
         }
     }
@@ -165,36 +180,31 @@ public class CardGameRunner extends GameRunner {
                     player.useMana(card.getManaCost());
                     toRemove.add(card);
                     System.out.println(card.getName() + " played.");
+                    gameState.notifySpectators(player.getName() + " plays " + card.getName() + ", costing " + card.getManaCost() + " mana.");
+                    gameState.notifySpectators("Turn ended. Next player is " + gameState.getOpponent().getName());
+                }
+                else{
+                    gameState.notifySpectators(player.getName() + " did not play any cards this turn.");
                 }
             }
         }
-        player.getHand().removeAll(toRemove);
+        player.getHand().removeAll(toRemove);    }
+
+    private void removeDeadCards(Player currentPlayer, Player otherPlayer) {
+        removeDeadCardsFromPlayer(currentPlayer);
+        removeDeadCardsFromPlayer(otherPlayer);
     }
 
-    private void removeDeadCards(Player player) {
+    private void removeDeadCardsFromPlayer(Player player) {
         ArrayList<Card> toRemove = new ArrayList<>();
-        // Collect dead cards from the player's in-play cards
         for (Card card : player.getInPlay().getCards()) {
             if (card.getHealth() <= 0) {
                 toRemove.add(card);
             }
         }
-        // Remove dead cards from in-play and add them to the graveyard
         player.getInPlay().removeAll(toRemove);
         for (Card card : toRemove) {
             player.getGraveyard().add(card);
-        }
-        // Get the opponent and repeat the process
-        Player otherPlayer = findOpponent(player);
-        toRemove.clear();
-        for (Card card : otherPlayer.getInPlay().getCards()) {
-            if (card.getHealth() <= 0) {
-                toRemove.add(card);
-            }
-        }
-        otherPlayer.getInPlay().removeAll(toRemove);
-        for (Card card : toRemove) {
-            otherPlayer.getGraveyard().add(card);
         }
     }
 
@@ -253,6 +263,11 @@ public class CardGameRunner extends GameRunner {
         }
 
         return starterDeck;
+    }
+
+    private void setupSpectators() {
+        ISpectator consoleSpectator = new Spectator();  // Create a new spectator instance
+        gameState.addSpectator(consoleSpectator);  // Add the spectator to the game state
     }
 
 }

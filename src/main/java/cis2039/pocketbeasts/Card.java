@@ -33,5 +33,5 @@ public interface Card {
 
     void damage(int amount);
 
-    //int compareTo(ICard o);
+    int compareTo(Card o);
 }

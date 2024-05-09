@@ -1,4 +1,4 @@
-package cis2039.pocketbeasts.Factory;
+package cis2039.pocketbeasts.FactoryPattern;
 
 import cis2039.pocketbeasts.Card;
 

@@ -17,9 +17,9 @@ public class Game {
                 new Player("Chris", new CardCollection(getStarterDeck()))
         };
 
-        GameState gameState = new GameState(players);
-        for (Player player : gameState.getPlayers()) {
+        for (Player player : players) {
             player.newGame();
+            System.out.println(player);
         }
 
         String winningMessage = "";

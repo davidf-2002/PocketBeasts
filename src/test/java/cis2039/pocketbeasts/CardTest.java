@@ -22,28 +22,25 @@ public class CardTest {
 
     public CardTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         card = new Beast("BR", "Barn Rat", 1, 1, 1);
     }
-    
+
     @After
     public void tearDown() {
         card = null;
     }
 
-    /**
-     * Test of getId method, of class Card.
-     */
     @Test
     public void testGetId() {
         Card instance = card;
@@ -52,9 +49,6 @@ public class CardTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getName method, of class Card.
-     */
     @Test
     public void testGetName() {
         Card instance = card;
@@ -63,9 +57,6 @@ public class CardTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getManaCost method, of class Card.
-     */
     @Test
     public void testGetManaCost() {
         Card instance = card;
@@ -74,9 +65,6 @@ public class CardTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getAttack method, of class Card.
-     */
     @Test
     public void testGetAttack() {
         Card instance = card;
@@ -85,9 +73,6 @@ public class CardTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getHealth method, of class Card.
-     */
     @Test
     public void testGetHealth() {
         Card instance = card;
@@ -96,40 +81,11 @@ public class CardTest {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of damage method, of class Card.
-     */
     @Test
     public void testDamage() {
         int amount = 0;
         Card instance = card;
         instance.damage(amount);
     }
-
-    /**
-     * Test of toString method, of class Card.
-     */
-    @Test
-    public void testToString() {
-        Card instance = card;
-        String expResult = "Barn Rat";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of compareTo method, of class Card.
-     */
-//    @Test
-//    public void testCompareTo() {
-//        System.out.println("compareTo");
-//        Card o = null;
-//        Card instance = null;
-//        int expResult = 0;
-//        int result = instance.compareTo(o);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 
 }

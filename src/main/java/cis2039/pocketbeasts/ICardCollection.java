@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Defines the contract for a collection of cards. This interface specifies methods
  * for managing a card collection within a card game
  */
+
 public interface ICardCollection {
     int count();
     void add(Card card);
