@@ -17,66 +17,21 @@
 package cis2039.pocketbeasts;
 
 /**
- *
- * @author Steven Mead
- * @author Chris Curry
+ * Defines the contract for a Card. This interface specifies methods
+ * for using a Card in the game
  */
-public class Card implements Comparable<Card> {
+public interface Card {
+    String getId();
 
-    private final String id;
-    private final String name;
-    private final int manaCost;
-    private final int attack;
-    private int health;
-    
-    public Card(String id, String name, int manaCost, int attack, int health) {
-        this.id = id;
-        this.name = name;
-        this.manaCost = manaCost;
-        this.attack = attack;
-        this.health = health;
-    }
-    
-    public Card(Card card) {
-        this.id = card.id;
-        this.name = card.name;
-        this.manaCost = card.manaCost;
-        this.attack = card.attack;
-        this.health = card.health;
-    }
+    String getName();
 
-    public String getId() {
-        return this.id;
-    }
-    
-    public String getName() {
-        return this.name;
-    }
+    int getManaCost();
 
-    public int getManaCost() {
-        return this.manaCost;
-    }
-    
-    public int getAttack() {
-        return this.attack;
-    }
+    int getAttack();
 
-    public int getHealth() {
-        return this.health;
-    }
-    
-    public void damage(int amount) {
-        this.health -= amount;
-    }
+    int getHealth();
 
-    @Override
-    public String toString() {
-        return this.name + " (" + this.id + ") Mana Cost/" + this.manaCost + 
-                " Attack/" + this.attack + " Health/" + this.health;
-    }
+    void damage(int amount);
 
-    @Override
-    public int compareTo(Card o) {
-        return Integer.compare(this.getManaCost(), o.getManaCost());
-    }
+    int compareTo(Card o);
 }
